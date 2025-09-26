@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Box, Text, Html } from '@react-three/drei';
+import { Box, Html } from '@react-three/drei';
 import { Mesh, Group } from 'three';
 import { motion } from 'framer-motion';
 
@@ -41,27 +41,30 @@ export function AIModelCube({
     }
   });
 
-  const getModelColor = (type: string) => {
-    switch (type) {
-      case 'neural-network': return '#00d4ff';
-      case 'computer-vision': return '#a855f7';
-      case 'nlp': return '#00ff88';
-      case 'analytics': return '#ff6b6b';
-      case 'deep-learning': return '#ffd93d';
-      default: return '#00d4ff';
-    }
+  const getModelColor = (type: string): string => {
+    const colors: Record<string, string> = {
+      'neural-network': '#00d4ff',
+      'computer-vision': '#a855f7',
+      'nlp': '#00ff88',
+      'analytics': '#ff6b6b',
+      'deep-learning': '#ffd93d'
+    };
+    return colors[type] || '#00d4ff';
   };
 
-  const getModelIcon = (type: string) => {
-    switch (type) {
-      case 'neural-network': return '🧠';
-      case 'computer-vision': return '👁️';
-      case 'nlp': return '💬';
-      case 'analytics': return '📊';
-      case 'deep-learning': return '🔬';
-      default: return '🤖';
-    }
+  const getModelIcon = (type: string): string => {
+    const icons: Record<string, string> = {
+      'neural-network': '🧠',
+      'computer-vision': '👁️',
+      'nlp': '💬',
+      'analytics': '📊',
+      'deep-learning': '🔬'
+    };
+    return icons[type] || '🤖';
   };
+
+  const modelColor = getModelColor(modelType);
+  const modelIcon = getModelIcon(modelType);
 
   return (
     <group 
@@ -84,11 +87,11 @@ export function AIModelCube({
         onClick={() => console.log(`Selected: ${modelType}`)}
       >
         <meshStandardMaterial
-          color={getModelColor(modelType)}
+          color={modelColor}
           transparent
           opacity={hovered ? 0.9 : 0.7}
           wireframe={!isSelected}
-          emissive={getModelColor(modelType)}
+          emissive={modelColor}
           emissiveIntensity={hovered ? 0.3 : 0.1}
         />
       </Box>
@@ -96,7 +99,7 @@ export function AIModelCube({
       {/* Floating Wireframe */}
       <Box args={[2.2, 2.2, 2.2]}>
         <meshBasicMaterial
-          color={getModelColor(modelType)}
+          color={modelColor}
           transparent
           opacity={0.2}
           wireframe
@@ -114,7 +117,7 @@ export function AIModelCube({
           animate={{ opacity: 1, y: 0 }}
           className="glass-card px-3 py-2 rounded-lg text-center min-w-[120px]"
         >
-          <div className="text-2xl mb-1">{getModelIcon(modelType)}</div>
+          <div className="text-2xl mb-1">{modelIcon}</div>
           <div className="text-sm font-bold text-primary neon-text">
             {label}
           </div>
@@ -139,9 +142,7 @@ export function AIModelCube({
               0
             ]}>
               <sphereGeometry args={[0.05, 8, 8]} />
-              <meshBasicMaterial
-                color={getModelColor(modelType)}
-              />
+              <meshBasicMaterial color={modelColor} />
             </mesh>
           ))}
         </group>
