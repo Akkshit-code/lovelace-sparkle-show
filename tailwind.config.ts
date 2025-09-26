@@ -58,6 +58,12 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+      backgroundImage: {
+        "gradient-cyber": "var(--gradient-cyber)",
+        "gradient-neon": "var(--gradient-neon)",
+        "gradient-dark": "var(--gradient-dark)",
+        "gradient-purple": "var(--gradient-purple)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -84,6 +90,15 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "float": "float 6s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite alternate",
+        "rotate-slow": "rotate-slow 20s linear infinite",
+        "cyber-glitch": "cyber-glitch 0.3s ease-in-out infinite",
+      },
+      boxShadow: {
+        "glow-cyber": "var(--glow-cyber)",
+        "glow-neon": "var(--glow-neon)",
+        "glow-purple": "var(--glow-purple)",
       },
     },
   },
